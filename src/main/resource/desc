@@ -1,0 +1,128 @@
+（100分）
+注意注意注意！！！
+
+1) 只能选择一个难度的题目完成考试，最后只提交一道题！
+
+2) 考试不限时。
+
+3) 只能提交一次。
+
+
+
+
+
+
+
+最后提交的成果物如下：
+
+1) Maven/Eclipse 项目，包括所有源码
+
+2) 所有的运行过程截图
+
+3) 必须有readme.txt， 说明所做的题目难度等级，和其他需要解释的内容
+
+
+
+
+
+
+
+=========打造我们自己的Tomcat 2.0=============
+
+
+
+
+
+前提条件：在任意盘，新建X:\MyTomcat目录，再新建webapps\Project1\WEB-INF\目录。在WEB-INF目录下，新建web.xml和classes目录。
+
+
+
+具体的文件示意图如下：
+
+X:
+
+ |--MyTomcat
+
+      |-----Project1
+
+               |----WEB-INF
+
+                       |---web.xml
+
+                       |---classes
+
+                              |----edu/ecnu/MyServletImpl.class
+
+          
+
+1. (60分), 请编写一个程序，有服务端和客户端。服务端驻守在8080端口。客户端通过Socket和服务端进行通讯。客户端发送Project1/MyServlet，服务端收到后，通过web.xml匹配到MyServletImpl, 执行MyServletImpl的doPost方法，并返回方法结果。
+
+
+
+web.xml示例
+
+
+
+<Servlets>
+<Servlet>
+<url>MyServlet</url>
+<class>edu.ecnu.MyServletImpl</class>
+</Servlet>
+</Servlets>
+
+
+public interface MyServlet
+{
+    public String doPost();
+}
+public class MyServletImpl implements MyServlet
+{
+    public String doPost()
+    {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+     
+        return "my tomcat is running at " + df.format(new Date());
+    }
+}
+
+
+2. (70分) 在上述基础上，使用动态代理，在Project1的MyServletImpl类的doPost方法调用前后，增加两句输出。输出可以在服务端的控制台上进行输出。输出内容带有before和after即可。
+
+
+
+3. (80分) 不再需要web.xml 而是采用注解方式,自定义一个注解MyServletURL。如下代码所示。
+
+public class MyServletImpl implements MyServlet
+{
+    @MyServletURL(value="MyServlet")
+    public String doPost()
+    {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+     
+        return "My servlet of project1 is running at " + df.format(new Date());
+    }
+}
+
+
+4. (90分) 在第三题的基础上(不需要xml), 再新建一个Project2项目，里面的内容和Project1一样，除了MyServletImpl. MyServletImpl的代码如下
+
+public class MyServletImpl implements MyServlet
+{
+    @MyServletURL(value="MyServlet")
+    public String doPost()
+    {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+     
+        //此处输出和Project1有差别。
+        return "My servlet of project2 is running at " + df.format(new Date());
+    }
+}
+
+
+服务端扫描所有项目中带有MyServletURL的注解,
+
+当客户端发送Project1/MyServlet，服务端执行Project1/MyServletImpl的doPost方法；当客户端发送Project2/MyServlet，服务端执行Project2/MyServletImpl的doPost方法. (提示，使用不同的类加载路径)
+
+
+
+5. (100分) 使用JConsole或者Visual VM连接服务端，查看进程CPU、内存、网络的运行情况，并截图。
