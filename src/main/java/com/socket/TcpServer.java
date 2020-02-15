@@ -15,9 +15,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.annotation.MyServletURL;
-import com.bean.MyServlet;
 import com.proxy.ProxyHandler;
 import com.utils.StreamUtils;
+
+import edu.encu.MyServlet;
 
 public class TcpServer {
 

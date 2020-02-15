@@ -1,4 +1,4 @@
-package com.bean;
+package edu.encu;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
