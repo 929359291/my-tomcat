@@ -15,7 +15,7 @@ public class TcpClient {
 		Socket socket = new Socket("127.0.0.1", 8080);
 		OutputStream os = socket.getOutputStream();
 		DataOutputStream dos = new DataOutputStream(os);
-		dos.writeBytes("Project1/MyServlet" + System.getProperty("line.separator"));
+		dos.writeBytes("Project2/MyServlet" + System.getProperty("line.separator"));
 		dos.flush();
 		InputStream is = socket.getInputStream();
 		String res = StreamUtils.readStreamToStr(is);
